@@ -6,7 +6,7 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:19:09 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/26 20:06:35 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:06:50 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,16 @@ int main()
 		} else if (ft_toupper(input) == "SEARCH") {
 			std::cout << "\033[1A\033[K";
 			std::cout << "                │                                                   │" EOC << std::endl;
-			std::cout << "                │╭─────────────────────────────────────────────────╮│" EOC << std::endl;
-			std::cout << "                ││   " YELLOW "INDEX   " WHITE "│ " YELLOW "FIRSTNAME  " WHITE "│ " YELLOW "LAST NAME  " WHITE "│ " YELLOW "NICKNAME  " WHITE "││" << std::endl;
+			std::cout << "                │   ╭───────────────────────────────────────────╮   │" EOC << std::endl;
+			std::cout << "                │   │  " YELLOW "INDEX   " WHITE "│" YELLOW "FIRSTNAME " WHITE "│" YELLOW "LAST NAME" WHITE " │ " YELLOW "NICKNAME " WHITE "│   │" << std::endl;
 			int num_contacts = phone_book.display_contact();
-			std::cout << "                │╰─────────────────────────────────────────────────╯│" EOC << std::endl;
+			std::cout << "                │   ╰───────────────────────────────────────────╯   │" EOC << std::endl;
 			std::cout << "                │                                                   │" EOC << std::endl;
 			if (num_contacts) {
-				std::cout << MAGENTA "[INPUT] " YELLOW "Enter index to get info : " WHITE;
-				std::cin >> input;
+				std::cout << MAGENTA "[INPUT] " YELLOW "Enter index to get info (0 to skip): " WHITE;
+				std::getline(std::cin, input);
 				std::cout << "\033[1A\033[K";
 				phone_book.get_info_contact(input);
-				std::getline(std::cin, input);
 			}
 			std::cout << "                │       " BLUE "ADD" WHITE "       |     " BLUE "SEARCH" WHITE "     |      " BLUE "EXIT" WHITE "      │" << std::endl;
 			std::cout << "                │                                                   │" EOC << std::endl;

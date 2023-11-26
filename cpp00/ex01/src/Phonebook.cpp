@@ -6,7 +6,7 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 17:55:40 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/26 20:05:40 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/26 21:09:22 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,61 +66,78 @@ int Phonebook::display_contact() const {
 	
 	for (int i = 0; i < num_contacts; ++i) {
 		ss << i + 1;
-		std::cout << "                ││";
+		std::cout << "                │   │";
 		display_contact_info(ss.str(), 10);
-		std::cout << " │ ";
+		std::cout << "│";
 		if (contacts[i].get_first_name().length() >= 10) {
 			display_contact_info(contacts[i].get_first_name().substr(0, 9) + ".", 10);
 		} else {
 			display_contact_info(contacts[i].get_first_name(), 10);
 		}
-		std::cout << " │ ";
+		std::cout << "│";
 		if (contacts[i].get_last_name().length() >= 10) {
 			display_contact_info(contacts[i].get_last_name().substr(0, 9) + ".", 10);
 		} else {
 			display_contact_info(contacts[i].get_last_name(), 10);
 		}
-		std::cout << " │ ";
+		std::cout << "│";
 		if (contacts[i].get_nickname().length() >= 10) {
 			display_contact_info(contacts[i].get_nickname().substr(0, 9) + ".", 10);
 		} else {
 			display_contact_info(contacts[i].get_nickname(), 10);
 		}
-		std::cout << "││ " << std::endl;
+		std::cout << "│   │ " << std::endl;
 
 		ss.str("");
 	}
 	return num_contacts;
 }
 
+// Function to check if an input is a single word or not
+static bool ft_is_single_word(const std::string& input) {
+    for (size_t i = 0; i < input.length(); ++i) {
+        if (isspace(input[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 // Function to get detailed information of a specific contact using an index
 void Phonebook::get_info_contact(std::string index) const {
-	int converted_nb = std::atoi(index.c_str());
-	if (converted_nb != 0 || (index == "0" && index.length() == 1)) {
-		int index_int = converted_nb - 1;
-		if (index_int >= 0 && index_int < _nb_contacts) {
-			std::cout << "                │ ";
-			display_contact_info(contacts[index_int].get_first_name(), 50);
-			std::cout << "│" << std::endl;
-			std::cout << "                │ ";
-			display_contact_info(contacts[index_int].get_last_name(), 50);
-			std::cout << "│" << std::endl;
-			std::cout << "                │ ";
-			display_contact_info(contacts[index_int].get_nickname(), 50);
-			std::cout << "│" << std::endl;
-			std::cout << "                │ ";
-			display_contact_info(contacts[index_int].get_phone_number(), 50);
-			std::cout << "│" << std::endl;
-			std::cout << "                │ ";
-			display_contact_info(contacts[index_int].get_secret(), 50);
-			std::cout << "│" << std::endl;
-			std::cout << "                │                                                   │" EOC << std::endl;
-		} else {
-			std::cout << "                │            " RED "[Error] Contact not found." WHITE "             │" << std::endl;
-			std::cout << "                │                                                   │" EOC << std::endl;
-		}
-	} else {
+	if (!ft_is_single_word(index)) {
 		std::cout << "                │              " RED "[Error] Invalid number." WHITE "              │" << std::endl;
 		std::cout << "                │                                                   │" EOC << std::endl;
+	} else {
+		int converted_nb = std::atoi(index.c_str());
+		if (converted_nb != 0 || (index == "0" && index.length() == 1)) {
+			int index_int = converted_nb - 1;
+			if (index_int == -1) {
+				return;
+			} else if (index_int > 0 && index_int < _nb_contacts) {
+				std::cout << "                │ ";
+				display_contact_info(contacts[index_int].get_first_name(), 50);
+				std::cout << "│" << std::endl;
+				std::cout << "                │ ";
+				display_contact_info(contacts[index_int].get_last_name(), 50);
+				std::cout << "│" << std::endl;
+				std::cout << "                │ ";
+				display_contact_info(contacts[index_int].get_nickname(), 50);
+				std::cout << "│" << std::endl;
+				std::cout << "                │ ";
+				display_contact_info(contacts[index_int].get_phone_number(), 50);
+				std::cout << "│" << std::endl;
+				std::cout << "                │ ";
+				display_contact_info(contacts[index_int].get_secret(), 50);
+				std::cout << "│" << std::endl;
+				std::cout << "                │                                                   │" EOC << std::endl;
+			} else {
+				std::cout << "                │            " RED "[Error] Contact not found." WHITE "             │" << std::endl;
+				std::cout << "                │                                                   │" EOC << std::endl;
+			}
+		} else {
+			std::cout << "                │             " RED "[Error] Invalid number." WHITE "               │" << std::endl;
+			std::cout << "                │                                                   │" EOC << std::endl;
+		}
 	}
 }

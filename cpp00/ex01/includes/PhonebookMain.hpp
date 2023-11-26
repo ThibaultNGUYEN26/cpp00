@@ -6,7 +6,7 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:19:30 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/24 16:53:19 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:25:00 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string>
 # include <sstream>
 # include <cstdlib>
+# include <cctype>
 # include "Contact.hpp"
 # include "Phonebook.hpp"
 
