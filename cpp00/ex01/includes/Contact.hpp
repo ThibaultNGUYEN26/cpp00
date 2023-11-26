@@ -6,7 +6,7 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:20:21 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/23 20:33:33 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:25:49 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ public:
 
 private:
 
-    std::string first;
-    std::string name;
-    std::string nickname;
-    std::string number;
-    std::string secret;
+    std::string _first;
+    std::string _name;
+    std::string _nickname;
+    std::string _number;
+    std::string _secret;
 
 };
 

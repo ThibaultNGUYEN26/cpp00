@@ -6,7 +6,7 @@
 #    By: thibault <thibault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 19:59:32 by thibault          #+#    #+#              #
-#    Updated: 2023/11/23 20:05:48 by thibault         ###   ########.fr        #
+#    Updated: 2023/11/24 16:21:23 by thibault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS		=	Account.cpp \
 OBJS		=	$(addprefix ${OBJECTS}/, $(SRCS:.cpp=.o))
 
 CC			=	g++ -std=c++98
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS		=	-Wall -Wextra -Werror -g #-fsanitize=address -fsanitize=undefined
 CINCLUDES	=	-I ${INCLUDES}
 
 BLACK		=	"\033[1;30m"

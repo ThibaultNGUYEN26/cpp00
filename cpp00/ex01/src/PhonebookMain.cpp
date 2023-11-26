@@ -6,12 +6,13 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:19:09 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/16 18:56:18 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/26 20:06:35 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/PhonebookMain.hpp"
 
+// Function to convert string to uppercase
 std::string ft_toupper(std::string str) {
 	std::string temp(str.length(), ' ');
 
@@ -20,6 +21,7 @@ std::string ft_toupper(std::string str) {
 	return temp;
 }
 
+// Function to capitalize the first character of the string
 std::string ft_capitalize(std::string str) {
 	std::string temp(str.length(), ' ');
 
@@ -40,7 +42,6 @@ int main()
 	std::cout << "                │       " BLUE "ADD" WHITE "       |     " BLUE "SEARCH" WHITE "     |      " BLUE "EXIT" WHITE "      │" << std::endl;
 	std::cout << "                │                                                   │" EOC << std::endl;
 
-	int it = 0;
 	while (true) {
 		std::cout << MAGENTA "[INPUT] : " WHITE;
 		std::getline(std::cin, input);
@@ -62,19 +63,22 @@ int main()
 			phone_book.add_contact(first, name, nickname, number, secret);
 
 			const Contact& last_contact = phone_book.get_last_contact();
-			std::string first_name = last_contact.get_first_name();
-			std::string last_name = last_contact.get_last_name();
-
-			if (it < 8) {
-				for (int i = 0; i < 7; i++) {
-					std::cout << "\033[1A\033[K";
-				}
+			std::string first_name;
+			std::string last_name;
+			if (last_contact.get_first_name().length() >= 10) {
+				first_name = last_contact.get_first_name().substr(0, 9) + ".";
 			} else {
-					for (int i = 0; i < 6; i++) {
-					std::cout << "\033[1A\033[K";
-				}
+				first_name = last_contact.get_first_name();
 			}
-			it++;
+			if (last_contact.get_last_name().length() >= 10) {
+				last_name = last_contact.get_last_name().substr(0, 9) + ".";
+			} else {
+				last_name = last_contact.get_last_name();
+			}
+
+			for (int i = 0; i < 6; i++) {
+				std::cout << "\033[1A\033[K";
+			}
 			
 			int spaces = (51 - (first_name.length() + last_name.length() + 1)) / 2;
 			std::string spaces_string;
@@ -94,9 +98,16 @@ int main()
 			std::cout << "                │                                                   │" EOC << std::endl;
 			std::cout << "                │╭─────────────────────────────────────────────────╮│" EOC << std::endl;
 			std::cout << "                ││   " YELLOW "INDEX   " WHITE "│ " YELLOW "FIRSTNAME  " WHITE "│ " YELLOW "LAST NAME  " WHITE "│ " YELLOW "NICKNAME  " WHITE "││" << std::endl;
-			phone_book.display_contact();
+			int num_contacts = phone_book.display_contact();
 			std::cout << "                │╰─────────────────────────────────────────────────╯│" EOC << std::endl;
 			std::cout << "                │                                                   │" EOC << std::endl;
+			if (num_contacts) {
+				std::cout << MAGENTA "[INPUT] " YELLOW "Enter index to get info : " WHITE;
+				std::cin >> input;
+				std::cout << "\033[1A\033[K";
+				phone_book.get_info_contact(input);
+				std::getline(std::cin, input);
+			}
 			std::cout << "                │       " BLUE "ADD" WHITE "       |     " BLUE "SEARCH" WHITE "     |      " BLUE "EXIT" WHITE "      │" << std::endl;
 			std::cout << "                │                                                   │" EOC << std::endl;
 		} else if (ft_toupper(input) == "EXIT") {
@@ -106,7 +117,6 @@ int main()
 			break;
 		} else {
 			std::cout << "\033[1A\033[K";
-			continue;
 		}
 	}
 	return 0;
