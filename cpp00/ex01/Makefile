@@ -6,7 +6,7 @@
 #    By: thibault <thibault@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/29 17:00:59 by thibault          #+#    #+#              #
-#    Updated: 2023/11/24 16:23:53 by thibault         ###   ########.fr        #
+#    Updated: 2023/11/27 17:03:55 by thibault         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS		=	Contact.cpp \
 OBJS		=	$(addprefix ${OBJECTS}/, $(SRCS:.cpp=.o))
 
 CC			=	g++ -std=c++98
-CFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address -fsanitize=undefined
+CFLAGS		=	-Wall -Wextra -Werror -g #-fsanitize=address -fsanitize=undefined
 CINCLUDES	=	-I ${INCLUDES}
 
 BLACK		=	"\033[1;30m"
