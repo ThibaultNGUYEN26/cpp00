@@ -6,7 +6,7 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 17:55:40 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/26 21:09:22 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:01:04 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void Phonebook::get_info_contact(std::string index) const {
 			int index_int = converted_nb - 1;
 			if (index_int == -1) {
 				return;
-			} else if (index_int > 0 && index_int < _nb_contacts) {
+			} else if (index_int >= 0 && index_int < _nb_contacts) {
 				std::cout << "                │ ";
 				display_contact_info(contacts[index_int].get_first_name(), 50);
 				std::cout << "│" << std::endl;
