@@ -6,7 +6,7 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 17:55:40 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/27 17:01:04 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:47:44 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,45 @@ Phonebook::Phonebook() : _nb_contacts(0), _temp(0) {}
 // Destructor for Phonebook class
 Phonebook::~Phonebook() {}
 
+// Function to check if an input is a single word or not
+static bool ft_is_single_word(const std::string& input) {
+	for (size_t i = 0; i < input.length(); ++i) {
+		if (isspace(input[i])) {
+			return false;
+		}
+	}
+	return true;
+}
+
+// Function to check if an input is only numeric or not
+static bool ft_is_numeric(const std::string& input) {
+	for (size_t i = 0; i < input.length(); ++i) {
+		if (!isdigit(input[i]) && input[i] != '-' && input[i] != '.') {
+			return false;
+		}
+	}
+	return true;
+}
+
 // Function to add a new contact to the Phonebook
-void Phonebook::add_contact(const std::string& first, const std::string& name, const std::string& nickname, const std::string& number, const std::string& secret) {
-	if (_nb_contacts < MAX_CONTACTS) {
+int Phonebook::add_contact(const std::string& first, const std::string& name, const std::string& nickname, const std::string& number, const std::string& secret) {
+	if (!ft_is_numeric(number) || !ft_is_single_word(number)) {
+		for (int i = 0; i < 6; i++) {
+			std::cout << "\033[1A\033[K";
+		}
+		std::cout << "                │                  " RED "Invalid number." WHITE "                  │" << std::endl;
+		std::cout << "                │               " RED "Fail to add Contact..." WHITE "              │" << std::endl;
+		std::cout << "                │                                                   │" EOC << std::endl;
+		return 0;
+	} else if (first.length() > 51 || name.length() > 51 || nickname.length() > 51 || number.length() > 51 || secret.length() > 51) {
+		for (int i = 0; i < 6; i++) {
+			std::cout << "\033[1A\033[K";
+		}
+		std::cout << "                │               " RED "Input length too long." WHITE "              │" << std::endl;
+		std::cout << "                │               " RED "Fail to add Contact..." WHITE "              │" << std::endl;
+		std::cout << "                │                                                   │" EOC << std::endl;
+		return 0;
+	} if (_nb_contacts < MAX_CONTACTS) {
 		contacts[_nb_contacts] = Contact(first, name, nickname, number, secret);
 		contacts[_nb_contacts].set_first_name(first);
 		contacts[_nb_contacts].set_last_name(name);
@@ -33,6 +69,7 @@ void Phonebook::add_contact(const std::string& first, const std::string& name, c
 		_temp++;
 		contacts[_temp % MAX_CONTACTS] = Contact(first, name, nickname, number, secret);
 	}
+	return 1;
 }
 
 // Function to retrieve the last contact added to the Phonebook
@@ -91,16 +128,6 @@ int Phonebook::display_contact() const {
 		ss.str("");
 	}
 	return num_contacts;
-}
-
-// Function to check if an input is a single word or not
-static bool ft_is_single_word(const std::string& input) {
-    for (size_t i = 0; i < input.length(); ++i) {
-        if (isspace(input[i])) {
-            return false;
-        }
-    }
-    return true;
 }
 
 // Function to get detailed information of a specific contact using an index

@@ -6,7 +6,7 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:19:09 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/27 17:20:56 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:37:08 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,39 +59,41 @@ int main()
 			std::cout << MAGENTA "[INPUT] " YELLOW "Secret       : " WHITE;
 			std::getline(std::cin >> std::ws, secret);
 			
-			phone_book.add_contact(first, name, nickname, number, secret);
-
-			const Contact& last_contact = phone_book.get_last_contact();
-			std::string first_name;
-			std::string last_name;
-			if (last_contact.get_first_name().length() >= 10) {
-				first_name = last_contact.get_first_name().substr(0, 9) + ".";
-			} else {
-				first_name = last_contact.get_first_name();
-			}
-			if (last_contact.get_last_name().length() >= 10) {
-				last_name = last_contact.get_last_name().substr(0, 9) + ".";
-			} else {
-				last_name = last_contact.get_last_name();
-			}
-
-			for (int i = 0; i < 6; i++) {
-				std::cout << "\033[1A\033[K";
-			}
+			int contact_status = phone_book.add_contact(first, name, nickname, number, secret);
 			
-			int spaces = (51 - (first_name.length() + last_name.length() + 1)) / 2;
-			std::string spaces_string;
-			for (int i = 0; i < spaces; i++) {
-				spaces_string += " ";
+			if (contact_status) {
+				const Contact& last_contact = phone_book.get_last_contact();
+				std::string first_name;
+				std::string last_name;
+				if (last_contact.get_first_name().length() >= 10) {
+					first_name = last_contact.get_first_name().substr(0, 9) + ".";
+				} else {
+					first_name = last_contact.get_first_name();
+				}
+				if (last_contact.get_last_name().length() >= 10) {
+					last_name = last_contact.get_last_name().substr(0, 9) + ".";
+				} else {
+					last_name = last_contact.get_last_name();
+				}
+
+				for (int i = 0; i < 6; i++) {
+					std::cout << "\033[1A\033[K";
+				}
+				
+				int spaces = (51 - (first_name.length() + last_name.length() + 1)) / 2;
+				std::string spaces_string;
+				for (int i = 0; i < spaces; i++) {
+					spaces_string += " ";
+				}
+				
+				std::cout << "                │" << spaces_string << ft_capitalize(first_name) << " " << ft_capitalize(last_name) << spaces_string;
+				if ((first_name.length() + last_name.length() + 1) % 2 == 0) {
+					std::cout << " │"<<std::endl;
+				} else {
+					std::cout << "│"<<std::endl;
+				}
+				std::cout << "                │            " GREEN "Contact added successfully!" WHITE "            │" << std::endl;
 			}
-			
-			std::cout << "                │" << spaces_string << ft_capitalize(first_name) << " " << ft_capitalize(last_name) << spaces_string;
-			if ((first_name.length() + last_name.length() + 1) % 2 == 0) {
-				std::cout << " │"<<std::endl;
-			} else {
-				std::cout << "│"<<std::endl;
-			}
-			std::cout << "                │            " GREEN "Contact added successfully!" WHITE "            │" << std::endl;
 		} else if (ft_toupper(input) == "SEARCH") {
 			std::cout << "\033[1A\033[K";
 			std::cout << "                │                                                   │" EOC << std::endl;
