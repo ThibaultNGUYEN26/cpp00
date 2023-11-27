@@ -6,7 +6,7 @@
 /*   By: thibault <thibault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 19:19:09 by thibault          #+#    #+#             */
-/*   Updated: 2023/11/27 16:53:21 by thibault         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:20:56 by thibault         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,13 @@ int main()
 		if (ft_toupper(input) == "ADD") {
 			std::string first, name, nickname, number, secret;
 			std::cout << MAGENTA "[INPUT] " YELLOW "First name   : " WHITE;
-			std::cin >> first;
+			std::getline(std::cin >> std::ws, first);
 			std::cout << MAGENTA "[INPUT] " YELLOW "Last name    : " WHITE;
-			std::cin >> name;
+			std::getline(std::cin >> std::ws, name);
 			std::cout << MAGENTA "[INPUT] " YELLOW "Nickname     : " WHITE;
-			std::cin >> nickname;
+			std::getline(std::cin >> std::ws, nickname);
 			std::cout << MAGENTA "[INPUT] " YELLOW "Phone number : " WHITE;
-			std::cin >> number;
-			std::getline(std::cin, secret);
+			std::getline(std::cin >> std::ws, number);
 			std::cout << MAGENTA "[INPUT] " YELLOW "Secret       : " WHITE;
 			std::getline(std::cin >> std::ws, secret);
 			
